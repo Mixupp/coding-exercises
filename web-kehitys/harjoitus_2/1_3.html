@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matkakustannuslaskuri</title>
+    <link rel="stylesheet" href="css/styles1_3.css">
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>Matkakustannusten laskuri</h1>
+        
+        <div class="calculator">
+            <p class="unit">Kilometrit:</p>
+    
+            <!-- Huomasin tässä vasta ensimmäistä kertaa käyttää minimiarvona 0, 
+                jotta kenttään ei voisi syötää negatiivista lukua. Negatiivisen luvun voi yhä
+                syöttää käsin, mutta ei pienistä nuolista. Tämänkin voisi taklata
+                virheilmoituksella halutessa. -->
+            <input type="number" min=0 id="km" class="input-number" placeholder="0">
+
+            <p class="unit">Päivien määrä:</p>
+            <input type="number" min=0 id="days" class="input-number" placeholder="0">
+
+            <p class="unit">Matkakohde:</p>
+            <select id="destination" class="input-number">
+                <option value="finland">Suomi</option>
+                <option value="sweden">Ruotsi</option>
+                <option value="norway">Norja</option>
+            </select>
+
+            <button id="calculate-btn" class="calculate-button">LASKE KUSTANNUKSET</button>
+            <div id="result" class="result-box"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('calculate-btn').addEventListener('click', function () {
+            const km = parseFloat(document.getElementById('km').value);
+            const days = parseFloat(document.getElementById('days').value);
+            const destination = document.getElementById('destination').value;
+
+            // Kilometrikorvaus (0.50€/km)
+            const kmRate = 0.50;
+            const travelCost = km * kmRate;
+
+            // Päiväraha määräytyy matkakohteen mukaan
+            let dailyAllowance = 0;
+            if (destination == 'finland') {
+                dailyAllowance = 30;  // Suomi
+            } else if (destination == 'sweden') {
+                dailyAllowance = 40;  // Ruotsi
+            } else if (destination == 'norway') {
+                dailyAllowance = 50;  // Norja
+            }
+
+            // Laskutoimitus päivärahalle
+            const totalDailyAllowance = dailyAllowance * days;
+
+            // Kokonaiskustannukset
+            const totalCost = travelCost + totalDailyAllowance;
+
+            // Näytetään tulos. Jos ei syötetä jompaa kumpaa arvoa, annetaan kehoite syöttää molemmat.
+            if (!km || !days) {
+                document.getElementById('result').textContent = `Syötä molemmat tiedot (kilometrit ja päivät).`;
+            } else {
+                document.getElementById('result').textContent = `Kokonaiskustannukset: €${totalCost.toFixed(2)} (Kilometrikorvaus: €${travelCost.toFixed(2)}, Päiväraha: €${totalDailyAllowance.toFixed(2)})`;
+            }
+        })
+    </script>
+</body>
+</html>

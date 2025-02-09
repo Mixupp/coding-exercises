@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Modify</title>
+    <link rel="stylesheet" href="css/styles3_4.css">
+    
+</head>
+<body>
+    <h1>Modify the products</h1>
+    <select id="product_select">
+        <option value="">Choose the product</option>
+    </select>
+
+    <form id="product_form">
+        <label for="product_id">Product ID:</label>
+        <input type="text" id="product_id" readonly>
+
+        <label for="product_name">Product Name:</label>
+        <input type="text" id="product_name">
+
+        <label for="product_price">Product Price:</label>
+        <input type="text" id="product_price">
+
+        <button type="button" onclick="updateProduct()">Save</button>
+    </form>
+
+    <script>
+
+        /* Tässä skriptissä on myös Save-painikkeelle oma toiminnallisuus
+            tuotetietojen päivittämiselle, vaikka se ei varsinaisesti ollut
+            tehtävänannon mukaista. Halusin kokeilla. */
+
+        function updateProduct() {
+            // Haetaan lomakkeelta muuttuneet tiedot
+            const newProductName = productNameInput.value;
+            const newProductPrice = parseFloat(productPriceInput.value);
+
+            // Haetaan valittu tuote
+            const selectedId = parseInt(productSelect.value);
+            const selectedProduct = products.find(product => product.id == selectedId);
+
+            // Jos tuote löytyy, päivitetään sen tiedot
+            if (selectedProduct) {
+                selectedProduct.name = newProductName;  // Päivitetään nimi
+                selectedProduct.price = newProductPrice;  // Päivitetään hinta
+                productForm.style.display = "none";
+            }
+            // Kun tuote päivittyy, nollataan select-valikko ja päivitetään sen sisältö funktiolla
+            updateProductSelect()
+        }
+        function updateProductSelect() {
+            // Tyhjennetään select-elementti ja annetaan sille oletusarvo.
+            productSelect.innerHTML = '<option value="">Choose the product</option>';
+
+            // Lisätään päivitetyt tuotteet select-elementtiin
+            products.forEach(product => {
+                const option = document.createElement("option");
+                option.value = product.id; // Talletetaan tuotteen ID arvoksi
+                option.textContent = product.name; // Näytetään vain tuotteen nimi
+                productSelect.appendChild(option);
+            });
+        }
+
+        // Tuotteiden lista
+        let products = [
+            {id: 1, name: "coffee", price: 2.90},
+            {id: 2, name: "tea", price: 1.90},
+            {id: 3, name: "chocolate cake", price: 3.90},
+            {id: 4, name: "strawberry cake", price: 4.90},
+            {id: 5, name: "orange juice", price: 2}
+        ];
+
+        // Alustetaan elementit omiin muuttujiinsa
+        const productSelect = document.getElementById("product_select");
+        const productForm = document.getElementById("product_form");
+        const productIdInput = document.getElementById("product_id");
+        const productNameInput = document.getElementById("product_name");
+        const productPriceInput = document.getElementById("product_price");
+
+        // a) Lisätään tässä tuotteet select-elementtiin
+        products.forEach(product => {
+            const option = document.createElement("option");
+            option.value = product.id; // Talletetaan tuotteen ID arvoksi
+            option.textContent = product.name; // Näytetään vain tuotteen nimi
+            productSelect.appendChild(option);
+        });
+
+        // b) Näytetään valitun tuotteen tiedot lomakkeessa
+        productSelect.addEventListener("change", () => {
+            const selectedId = parseInt(productSelect.value); // Haetaan valittu ID
+            // Haetaan tuotteen tiedot sen perusteella, mikä on valitun tuotteen ID
+            const selectedProduct = products.find(product => product.id == selectedId); 
+
+            if (selectedProduct) {
+                // Täytetään lomake tiedoilla ja näytetään se
+                productIdInput.value = selectedProduct.id;
+                // Tässä kokeilin, muokata tuotteen nimen näkymään isolla alkukirjaimella
+                productNameInput.value = selectedProduct.name.charAt(0).toUpperCase() + selectedProduct.name.slice(1);
+                productPriceInput.value = selectedProduct.price;
+                productForm.style.display = "block"; 
+            } else {
+                // Piilotetaan lomake, jos mitään ei ole valittu
+                productForm.style.display = "none";
+            }
+        });
+
+    
+    </script>
+</body>
+</html>

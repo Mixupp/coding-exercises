@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Product Sort</title>
+    <link rel="stylesheet" href="css/styles3_7.css">
+</head>
+<body>
+    <h1>Sort the products by price</h1>
+
+    <table id="product_table">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>price</th>
+                <th>category</th>
+                <th>discount</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        // Tuotteiden lista
+        let products = [
+            {id: 1, name: "coffee", price: 2.90, category: "drink", discount: false},
+            {id: 2, name: "tea", price: 1.90, category: "drink", discount: false},
+            {id: 3, name: "chocolate cake", price: 3.90, category: "bakery", discount: true},
+            {id: 4, name: "strawberry cake", price: 4.90, category: "bakery", discount: false},
+            {id: 5, name: "orange juice", price: 2.00, category: "drink", discount: true}
+        ];
+
+        const productTableBody = document.getElementById('product_table').getElementsByTagName('tbody')[0];
+
+        function displayProducts() {
+            productTableBody.innerHTML = ''; 
+
+            products.forEach(function(product) {
+                const row = document.createElement('tr');
+                
+                const idCell = document.createElement('td');
+                idCell.textContent = product.id;
+                row.appendChild(idCell);
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = product.name;
+                row.appendChild(nameCell);
+
+                const priceCell = document.createElement('td');
+                priceCell.textContent = product.price.toFixed(2);
+                row.appendChild(priceCell);
+
+                const categoryCell = document.createElement('td');
+                categoryCell.textContent = product.category;
+                row.appendChild(categoryCell);
+
+                const discountCell = document.createElement('td');
+
+                // Muutetaan true ja false -> yes ja no
+                if (product.discount) {
+                    discountCell.textContent = "Yes";
+                } else {
+                    discountCell.textContent = "No";
+                }
+                row.appendChild(discountCell);
+
+                productTableBody.appendChild(row);
+            });
+        }
+
+        // Lajitellaan tuotteet hinnan mukaan
+        function sortProductsByPrice() {
+            products.sort((a, b) => a.price - b.price);
+        }
+
+        // Lajitellaan ja näytetään tuotteet, kun sivu ladataan
+        sortProductsByPrice();
+        displayProducts();
+    </script>
+</body>
+</html>

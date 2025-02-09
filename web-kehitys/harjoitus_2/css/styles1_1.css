@@ -1,0 +1,78 @@
+body {
+    display: flex; /* Keskitetään sisältö vaakasuunnassa */
+    justify-content: center; /* Keskitetään sisältö vaakasuunnassa */
+    align-items: center; /* Keskitetään sisältö pystysuunnassa */
+    height: 100vh; /* Korkeus koko näkymän korkeuden verran eli 100% */
+    background-color: #d3cccc; /* Vaaleanharmaa tausta */
+}
+
+
+ /* Laskimelle oma container, jotta sen sisältöä on helppo muuttaa
+    ja sen tyyliä hallita */
+.calculator-container {
+    text-align: center; /* Keskitetään tekstit */
+    background: #ffffff; /* Valkoinen tausta laatikolle */
+    padding: 20px; /* Tilaa sisällön ympärille */
+    border-radius: 8px; /* Pyöristetyt kulmat */
+    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.5); /* Hento varjo laatikolle */
+}
+
+h1 {
+    font-size: 24px; /* Otsikon fonttikoko */
+    color: #333; /* Tummanharmaa väri otsikolle */
+    margin-bottom: 20px; /* Tilaa otsikon ja laskimen väliin */
+}
+
+.calculator {
+    display: flex; /* Asetellaan elementit vaakasuoraan */
+    align-items: center; /* Kohdistetaan pystysuunnassa keskelle */
+    justify-content: center; /* Kohdistetaan vaakasuunnassa keskelle */
+    gap: 10px; /* Väli elementtien välillä */
+}
+
+.input-number {
+    width: 50px; /* Syötekentän leveys */
+    height: 20px; /* Syötekentän korkeus */
+    font-size: 16px; /* Syötekentän tekstin koko */
+    text-align: center; /* Teksti keskelle kenttää */
+    border: 2px solid #ccc; /* Harmaa reunus */
+    border-radius: 4px; /* Pyöristetyt kulmat */
+}
+
+.operator {
+    font-weight: bold;
+    font-size: 20x; /* Operaattorin symbolin koko */
+    width: 20px;
+    height: 20px;
+    color: #333; /* Tummanharmaa väri operaattorille */
+    border: solid black 1px; /* Musta reunus operaattorille */
+    background-color: lightgrey; /* Vaaleanharmaa tausta operaattorille */
+}
+
+.calculate-button {
+    background-color: #1e7c21; /* Vihreä taustaväri painikkeelle */
+    color: white; /* Valkoinen teksti painikkeessa */
+    border: none; /* Ei reunuksia painikkeelle */
+    padding: 10px 20px; /* Tilaa painikkeen sisällä */
+    font-size: 19px; /* Painikkeen tekstin koko */
+    border-radius: 4px; /* Pyöristetyt kulmat */
+    cursor: pointer; /* Osoitin muuttuu pointeriksi */
+    transition: background-color 0.3s ease; /* Sulava värimuutos hoverissa */
+}
+
+.calculate-button:hover {
+    background-color: #45a049; /* Vaaleampi vihreä hover-tilassa */
+}
+
+.result-box {
+    width: 50px; /* Tuloslaatikon leveys */
+    height: 45px; /* Tuloslaatikon korkeus */
+    font-size: 19px; /* Tuloslaatikon tekstin koko */
+    text-align: center; /* Teksti keskelle laatikkoa. */
+    line-height: 45px; /*   Kohdistetaan teksti pystysuunnassa keskelle. 
+                            45px koska laatikon korkeus on 45px. */
+    background-color: #0000ff; /* Sininen tausta tulokselle */
+    color: #ffffff; /* Valkoinen teksti tuloksessa */
+    border-radius: 4px; /* Pyöristetyt kulmat */
+    border: none; /* Ei reunuksia */
+}

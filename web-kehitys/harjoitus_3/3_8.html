@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Product Sort</title>
+    <link rel="stylesheet" href="css/styles3_8.css">
+</head>
+<body>
+    <h1>Sort the products by selected criteria</h1>
+
+    <div>
+        <select id="sort_criteria">
+            <option value="name">Name</option>
+            <option value="price">Price</option>
+            <option value="category">Category</option>
+            <option value="discount">Discount</option>
+        </select>
+    </div>
+
+    <table id="product_table">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>price</th>
+                <th>category</th>
+                <th>discount</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+
+    <script>
+        // Tuotteiden lista
+        let products = [
+            {id: 1, name: "coffee", price: 2.90, category: "drink", discount: false},
+            {id: 2, name: "tea", price: 1.90, category: "drink", discount: false},
+            {id: 3, name: "chocolate cake", price: 3.90, category: "bakery", discount: true},
+            {id: 4, name: "strawberry cake", price: 4.90, category: "bakery", discount: false},
+            {id: 5, name: "orange juice", price: 2.00, category: "drink", discount: true}
+        ];
+
+        // Alustetaan taulukko ja select-elementit
+        const productTableBody = document.getElementById('product_table').getElementsByTagName('tbody')[0];
+        const sortCriteriaSelect = document.getElementById('sort_criteria');
+
+        // Funktio tuotteiden näyttämiseksi taulukossa
+        function displayProducts() {
+            productTableBody.innerHTML = ''; // Tyhjennetään taulukon sisältö ennen uusien tuotteiden lisäämistä
+
+            products.forEach(function(product) {
+                const row = document.createElement('tr');
+                
+                const idCell = document.createElement('td');
+                idCell.textContent = product.id;
+                row.appendChild(idCell);
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = product.name;
+                row.appendChild(nameCell);
+
+                const priceCell = document.createElement('td');
+                priceCell.textContent = product.price.toFixed(2);
+                row.appendChild(priceCell);
+
+                const categoryCell = document.createElement('td');
+                categoryCell.textContent = product.category;
+                row.appendChild(categoryCell);
+
+                const discountCell = document.createElement('td');
+
+                // muutetaan true ja false -> yes ja no
+                if (product.discount) {
+                    discountCell.textContent = "Yes";
+                } else {
+                    discountCell.textContent = "No";
+                }
+                row.appendChild(discountCell);
+
+                productTableBody.appendChild(row);
+            });
+        }
+
+        // Funktio valitun kriteerin mukaan lajittelemiseksi
+        function sortProducts() {
+            const criteria = sortCriteriaSelect.value;
+
+            products.sort((a, b) => {
+                if (criteria === 'price') {
+                    return a.price - b.price; // Lajitellaan hinnan mukaan nousevasti
+                } else if (criteria === 'discount') {
+                    if (a.discount === b.discount) {
+                        return 0;
+                    }
+                    return a.discount ? -1 : 1; // simppeli vertailu ilman ternary-funktiota
+                } else if (criteria === 'category') {
+                    
+                    if (a.category < b.category) {
+                        return -1; 
+                    } else if (a.category > b.category) {
+                        return 1;  
+                    }
+                    return 0; 
+                } else {
+                    // Lajitellaan nimen mukaan aakkosjärjestyksessä
+                    if (a.name < b.name) {
+                        return -1; 
+                    } else if (a.name > b.name) {
+                        return 1;  
+                    }
+                    return 0; 
+                }
+            });
+
+            displayProducts(); // Päivitetään taulukko lajittelun jälkeen
+        }
+
+        displayProducts();
+
+        sortCriteriaSelect.addEventListener('change', sortProducts);
+    </script>
+</body>
+</html>

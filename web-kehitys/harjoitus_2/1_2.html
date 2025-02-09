@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <link rel="stylesheet" href="css/styles1_2.css">
+</head>
+<body>
+    
+    <div class="calculator-container">
+        <h1>Give the kilometers and the consumption is counted below the button</h1> 
+        <div class="calculator">
+            <p class="unit">KM =</p>
+            <input type="number" id="num" class="input-number" placeholder="0">
+            <button id="calculate-btn" class="calculate-button">COUNT</button>
+            <div id="result" class="result-box"></div>
+        </div>
+    </div>
+
+    <!--    Haetaan painike-elementti ja numerokentästä arvo, jonka käyttäjä on syöttänyt.
+            Sitten lasketaan kulutus arvolla 7.0L / 100KM, parsitaan luvut floateiksi.
+            Näytetään tulos result-elementissä, joko 0 tai laskettu tulos. -->
+    <script>
+        document.getElementById('calculate-btn').addEventListener('click', function () {
+            const consumption = 7.0 / 100;
+            const km = parseFloat(document.getElementById('num').value)
+            const result = consumption * km
+            if (!result) {
+                document.getElementById('result').textContent = `Consumption is 0 litres.`;
+            } 
+            else {
+                document.getElementById('result').textContent = `Consumption is ${result.toFixed(2)} litres.`;
+            }
+        })
+    </script>
+</body>
+</html>

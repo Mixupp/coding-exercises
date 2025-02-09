@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff</title>
+    <link rel="stylesheet" href="css/styles3_2.css">
+</head>
+<body>
+    <h1>Our Staff</h1>
+    <ul id="staff-list"></ul>
+
+    <script>
+        const persons = [
+            {name: "Mike Mills", position: "Secretary"},
+            {name: "Alice Aston", position: "Sales Manager"},
+            {name: "Jordan Lewis", position: "HR Manager"},
+            {name: "Mary Mills", position: "Boss"},
+            {name: "Philip Patterson", position: "Web Developer"},
+            ]
+
+        const staffList = document.getElementById('staff-list');
+
+        persons.forEach(person => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${person.name}, ${person.position}`;
+            staffList.appendChild(listItem);
+        });
+    </script>
+</body>
+</html>

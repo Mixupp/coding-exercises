@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff</title>
+    <link rel="stylesheet" href="css/styles3_1.css">
+</head>
+<body>
+    <h1>Our Staff</h1>
+    <ul id="staff-list"></ul>
+
+    <script>
+        const persons = ["Mike Mills", "Alice Aston", "Jordan Lewis", "Mary Mills", "Philip Patterson"];
+
+        const staffList = document.getElementById('staff-list');
+
+        persons.forEach(person => {
+            const listItem = document.createElement('li');
+            listItem.textContent = person;
+            staffList.appendChild(listItem);
+        });
+    </script>
+</body>
+</html>

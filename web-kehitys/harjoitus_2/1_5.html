@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Math Game</title>
+  <link rel="stylesheet" href="css/styles1_5.css">
+</head>
+<body>
+  <h1>Math Game</h1>
+  <div class="container">
+    
+    <div id="task-info">
+      <span id="task-number">1</span> / 5
+    </div>
+
+
+    <div id="question" class="math-task">
+      <span id="number1">6</span>
+      <span id="operator">+</span>
+      <span id="number2">1</span>
+      <span class="equals">=</span>
+    </div>
+
+    
+    <div id="answer-section" class="answer-section">
+      <input type="text" id="answer" />
+      <button id="submit">Send</button>
+    </div>
+    <!-- Oletuksena result-elementtiä ei näytetä ja se muutetaan skriptin kautta näkyviin. -->
+    <div id="result" style="display: none;">
+      Game Over! You got: <span id="final-score"></span> / 5
+    </div>
+
+  </div>
+
+  <script src="js/script1_5.js"></script>
+</body>
+</html>

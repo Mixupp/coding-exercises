@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Product Modify</title>
+    <link rel="stylesheet" href="css/styles3_9.css">
+</head>
+<body>
+    <h1>Modify the products</h1>
+
+    <div>
+        <label for="search_title">Search by title: </label>
+        <input type="text" id="search_title">
+    </div>
+
+    <div>
+        <label for="choose_user">Choose user: </label>
+        <select id="choose_user">
+            <option value="">All users</option>
+            <option value="1">User 1</option>
+            <option value="2">User 2</option>
+            <option value="3">User 3</option>
+            <option value="4">User 4</option>
+            <option value="5">User 5</option>
+            <option value="6">User 6</option>
+            <option value="7">User 7</option>
+            <option value="8">User 8</option>
+            <option value="9">User 9</option>
+            <option value="10">User 10</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="completed">Completed: </label>
+        <input type="checkbox" id="completed">
+    </div>
+
+    <table id="todos"></table>
+  
+    <script>
+        // Haetaan todo-tiedot
+        function fetchTodos() {
+            fetch("https://jsonplaceholder.typicode.com/todos")
+            .then(response => response.json())
+            .then(json => {
+                todos = json;
+                createTable(todos);
+            });
+        }
+
+        let tableElem = null;
+        let todos = [];
+
+        // Suodatetaan todos-kohteet
+        function filterTodos() {
+            const searchTitle = document.getElementById("search_title").value;
+            const chosenUser = document.getElementById("choose_user").value;
+            const isCompleted = document.getElementById("completed").checked;
+
+            const filteredTodos = todos.filter(todo => {
+                let matchesTitle = false;
+                let matchesUser = false;
+                let matchesCompletion = false;
+                // jos todon title pitää sisällään hakukentän merkkijonon
+                if (todo.title.includes(searchTitle)) {
+                    matchesTitle = true; // palautetaan arvo true matchesTitleen
+                }
+                // jos chosenUseria ei ole valittu, eli se on tyhjä TAI todon userID vastaa valittua käyttäjää
+                if (chosenUser === "" || todo.userId == chosenUser) {
+                    matchesUser = true; // palautetaan arvo true matchesUseriin
+                }
+                // jos checkboxia ei ole klikattu TAI todon completed on true
+                if (!isCompleted || todo.completed === true) {
+                    matchesCompletion = true; // palautetaan arvo true matchesCompletioniin
+                }
+                // Kun kaikki kolme kriteeriä täyttyvät, näytetään todo eli se pääsee filteröinnistä läpi
+                return matchesTitle && matchesUser && matchesCompletion;
+            });
+            // luodaan table niistä todoista jotka läpäisivät filterin
+            createTable(filteredTodos);
+        }
+
+        
+        function createTable(data) {
+            tableElem.innerHTML = '';  
+
+           
+            const headers = ['UserId', 'ID', 'Title', 'Completed'];
+            const headerRow = document.createElement('tr');
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                headerRow.appendChild(th);
+            });
+            tableElem.appendChild(headerRow);
+
+            // Lisää suodatetut todos-kohteet taulukkoon
+            data.forEach(todo => {
+                const row = document.createElement('tr');
+
+                const userIdCell = document.createElement('td');
+                userIdCell.textContent = todo.userId;
+                row.appendChild(userIdCell);
+
+                const idCell = document.createElement('td');
+                idCell.textContent = todo.id;
+                row.appendChild(idCell);
+
+                const titleCell = document.createElement('td');
+                titleCell.textContent = todo.title;
+                row.appendChild(titleCell);
+
+                const completedCell = document.createElement('td');
+                if (todo.completed) {
+                    completedCell.textContent = 'Yes';
+                } else {
+                    completedCell.textContent = 'No';
+                }
+                row.appendChild(completedCell);
+
+                tableElem.appendChild(row);
+            });
+        }
+
+        // Alustetaan taulukko ja tapahtumakuuntelijat
+        document.addEventListener("DOMContentLoaded", () => {
+            tableElem = document.getElementById("todos");
+            // haetaan todot rajapinnasta
+            fetchTodos();
+
+            // Tapahtumakuuntelijat suodatuskentille
+            document.getElementById("search_title").addEventListener("input", filterTodos);
+            document.getElementById("choose_user").addEventListener("change", filterTodos);
+            document.getElementById("completed").addEventListener("change", filterTodos);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <link rel="stylesheet" href="css/styles1_1.css">
+</head>
+<body>
+    <div class="calculator-container"> 
+        <h1>Simple calculator</h1>
+        <div class="calculator">
+            <input type="number" id="num1" class="input-number" placeholder="0">
+            <span class="operator">+</span>
+            <input type="number" id="num2" class="input-number" placeholder="0">
+            <button id="calculate-btn" class="calculate-button">=</button>
+            <div id="result" class="result-box">0</div>
+        </div>
+    </div>
+
+    <!--   Skripti, jossa laitetaan ensin calculate-btn -painikkeelle event listener.
+            Funktio määritellään skriptin sisällä suoraan ja se ottaa kaksi syötettyä valueta eri syöttökentistä
+            tai, jos kenttä on tyhjä, oletukseksi asetetaan 0. Numerot parsitaan liukuluvuiksi. Lopuksi
+            luvut lasketaan yhteen result-muuttujaan ja result-muuttuja siirretään result-tekstikenttään. -->
+    <script>
+        document.getElementById('calculate-btn').addEventListener('click', function () {
+            const num1 = parseFloat(document.getElementById('num1').value) || 0;
+            const num2 = parseFloat(document.getElementById('num2').value) || 0;
+            const result = num1 + num2;
+            document.getElementById('result').textContent = result;
+        });
+    </script>
+</body>
+</html>

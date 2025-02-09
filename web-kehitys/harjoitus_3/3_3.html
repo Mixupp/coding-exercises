@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff Table</title>
+    <link rel="stylesheet" href="css/styles3_3.css">
+</head>
+<body>
+    <h1>Our Staff</h1>
+    <table id="staff-table"></table>
+
+    <script>
+        const persons = [
+            {name: "Mike Mills", position: "Secretary", location: "California"},
+            {name: "Alice Aston", position: "Sales Manager", location: "Barcelona, Spain"},
+            {name: "Jordan Lewis", position: "HR Manager", location: "Milan, Italy"},
+            {name: "Mary Mills", position: "Boss", location: "Hamburg, Germany"},
+            {name: "Philip Patterson", position: "Web Developer", location: "London, England"}
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const tableElem = document.getElementById("staff-table");
+
+            // Luodaan ensin taulukon otsikot
+            const headers = ["name", "position", "location"];
+            const headerRow = document.createElement("tr");
+            headers.forEach(header => {
+                const th = document.createElement("th");
+                th.textContent = header;
+                headerRow.appendChild(th);
+            });
+            tableElem.appendChild(headerRow);
+
+            // Luodaan sitten taulukon rivit
+            persons.forEach(person => {
+                const row = document.createElement("tr");
+                for (const key in person) {
+                    const dataCell = document.createElement("td");
+                    dataCell.textContent = person[key];
+                    row.appendChild(dataCell);
+                }
+                tableElem.appendChild(row);
+            });
+        });
+    </script>
+</body>
+</html>

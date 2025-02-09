@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<head>
+    <title>Product Filter</title>
+    <link rel="stylesheet" href="css/styles3_6.css">
+</head>
+<body>
+    <h1>Product List</h1>
+    
+    <div>
+        <label for="max_price">Max Price: </label>
+        <input type="number" id="max_price" placeholder="Enter max price" />
+        
+        <label for="category_select">Choose the category: </label>
+        <select id="category_select">
+            <option value="">All Categories</option>
+            <option value="drink">Drink</option>
+            <option value="bakery">Bakery</option>
+        </select>
+        
+        <input type="checkbox" id="discount_checkbox">
+        <label for="discount_checkbox">Only discounts</label>
+        
+    </div>
+
+    <button id="apply_button">Apply</button> 
+
+    <table id="product_table">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>price</th>
+                <th>category</th>
+                <th>discount</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+
+    <script>
+        // Tuotteiden lista
+        const products = [
+            {id: 1, name: "coffee", price: 2.90, category: "drink", discount: false},
+            {id: 2, name: "tea", price: 1.90, category: "drink", discount: false},
+            {id: 3, name: "chocolate cake", price: 3.90, category: "bakery", discount: true},
+            {id: 4, name: "strawberry cake", price: 4.90, category: "bakery", discount: false},
+            {id: 5, name: "orange juice", price: 2.00, category: "drink", discount: true}
+        ];
+
+        
+        const productTableBody = document.getElementById('product_table').getElementsByTagName('tbody')[0];
+        const maxPriceInput = document.getElementById('max_price');
+        const categorySelect = document.getElementById('category_select');
+        const discountCheckbox = document.getElementById('discount_checkbox');
+        const applyButton = document.getElementById('apply_button');
+
+        
+        function displayProducts(filteredProducts) {
+            productTableBody.innerHTML = ''; 
+
+            filteredProducts.forEach(product => {
+                const row = document.createElement('tr');
+                
+                const idCell = document.createElement('td');
+                idCell.textContent = product.id;
+                row.appendChild(idCell);
+                
+                const nameCell = document.createElement('td');
+                nameCell.textContent = product.name;
+                row.appendChild(nameCell);
+
+                const priceCell = document.createElement('td');
+                priceCell.textContent = product.price.toFixed(2);
+                row.appendChild(priceCell);
+
+                const categoryCell = document.createElement('td');
+                categoryCell.textContent = product.category;
+                row.appendChild(categoryCell);
+
+                const discountCell = document.createElement('td');
+
+                // Kokeillaan tässä "condition ? valueIfTrue : valueIfFalse", eli ternary -operaattoria
+                discountCell.textContent = product.discount ? "Yes" : "No";
+                row.appendChild(discountCell);
+
+                productTableBody.appendChild(row);
+            });
+        }
+
+        // Funktio suodattaa tuotteet max-hinnan, kategorian ja discountin mukaan
+        function filterProducts() {
+            const maxPrice = parseFloat(maxPriceInput.value) || Infinity; 
+            const selectedCategory = categorySelect.value;
+            const discountSelected = discountCheckbox.checked;
+
+            const filteredProducts = products.filter(product => {
+                
+                let priceMatch;
+                if (product.price <= maxPrice) {
+                    priceMatch = true;
+                } else {
+                    priceMatch = false;
+                }
+
+                // Suodatetaan kategorian mukaan
+                let categoryMatch;
+                if (selectedCategory) {
+                    if (product.category === selectedCategory) {
+                        categoryMatch = true;
+                    } else {
+                        categoryMatch = false;
+                    }
+                } else {
+                    categoryMatch = true; // Jos kategoriaa ei ole valittu, hyväksytään kaikki kategoriat
+                }
+
+                // Suodatetaan discountin mukaan
+                let discountMatch;
+                if (discountSelected) {
+                    if (product.discount === true) {
+                        discountMatch = true;
+                    } else {
+                        discountMatch = false;
+                    }
+                } else {
+                    discountMatch = true; // Jos alennusta ei ole valittu, hyväksytään kaikki tuotteet
+                }
+
+                /* Tuote näytetään, jos kaikista filteröintivertailuista saadaan "true".
+                Jos jotain filteröintitapaa ei valita niin palautetaan sen osalta oletuksena true. */ 
+                return priceMatch && categoryMatch && discountMatch;
+            });
+
+
+            displayProducts(filteredProducts);
+        }
+
+        // Alustetaan taulukko näyttämään kaikki tuotteet aluksi
+        displayProducts(products);
+
+        applyButton.addEventListener('click', filterProducts);
+    </script>
+</body>
+</html>

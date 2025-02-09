@@ -1,0 +1,12 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+#product_form {
+    display: none;
+    margin-top: 20px;
+}
+label, select, input {
+    display: block;
+    margin: 10px 0;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Filter</title>
+    <link rel="stylesheet" href="css/styles3_5.css">
+</head>
+<body>
+    <h1>Modify the products</h1>
+    
+    <div>
+        <label for="max_price">Max Price: </label>
+        <input type="number" id="max_price" placeholder="Enter max price" />
+        <button id="apply_button">Apply</button> 
+    </div>
+
+    <table id="product_table">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Tuotteet tulee tänne -->
+        </tbody>
+    </table>
+
+    <script>
+        
+        const products = [
+            {id: 1, name: "coffee", price: 2.90},
+            {id: 2, name: "tea", price: 1.90},
+            {id: 3, name: "chocolate cake", price: 3.90},
+            {id: 4, name: "strawberry cake", price: 4.90},
+            {id: 5, name: "orange juice", price: 2.00}
+        ];
+
+        /* Alustetaan taulukko ja input-elementit */
+
+        // Haetaantässä product_tablen tbody-osio omaan muuttujaan, jotta voidaan sijoittaa sinne
+        const productTableBody = document.getElementById('product_table').getElementsByTagName('tbody')[0];
+        const maxPriceInput = document.getElementById('max_price');
+        const applyButton = document.getElementById('apply_button'); // Haetaan Apply-painike
+
+        // Funktio tuotteiden näyttämiseksi taulukossa
+        function displayProducts(filteredProducts) {
+            productTableBody.innerHTML = ''; // Tyhjennetään taulukon sisältö ennen uusien tuotteiden lisäämistä
+
+            filteredProducts.forEach(product => {
+                const row = document.createElement('tr');
+                
+                // ID-sarake
+                const idCell = document.createElement('td');
+                idCell.textContent = product.id;
+                row.appendChild(idCell);
+
+                // Nimi-sarake
+                const nameCell = document.createElement('td');
+                nameCell.textContent = product.name;
+                row.appendChild(nameCell);
+
+                // Hinta-sarake
+                const priceCell = document.createElement('td');
+                priceCell.textContent = product.price.toFixed(2); // Kahden desimaalin tarkkuus
+                row.appendChild(priceCell);
+
+                productTableBody.appendChild(row);
+            });
+        }
+
+        // Funktio suodattaa tuotteet max-hinnan mukaan
+        function filterProducts() {
+            const maxPrice = parseFloat(maxPriceInput.value) || Infinity; // Jos ei syötettä, ei suodateta
+            // Tässä filteröidään tuotteista sellaiset, joissa tuotteen price-arvo on alle tai yhtäsuuri kuin maxPrice
+            const filteredProducts = products.filter(product => product.price <= maxPrice);
+            // Lähetetään filteröidyt tuotteet displayProducts-funktiolle
+            displayProducts(filteredProducts);
+        }
+
+        // Alustetaan taulukko näyttämään kaikki tuotteet aluksi
+        displayProducts(products);
+
+        // Lisätään tapahtumakuuntelija Apply-painikkeelle ja kutsutaan filteröintifunktiota
+        applyButton.addEventListener('click', filterProducts);
+    </script>
+</body>
+</html>

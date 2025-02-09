@@ -1,0 +1,48 @@
+/* Asetetaan koko body-elementille sisäiset marginaalit 10px */
+body {
+    padding: 10px;
+}
+
+/* .calculator-container-luokka asettaa laskimen taustavärin, pyöristää kulmat,
+   lisää sisäisiä marginaaleja ja määrittää leveydeksi 50% näkymän leveydestä (50vw) */
+.calculator-container {
+    background-color: rgb(235, 235, 235);  /* Vaaleanharmaa taustaväri */
+    border-radius: 5px;  /* Pyöristetyt kulmat */
+    padding: 5px;  /* Sisäiset marginaalit */
+    width: 50vw;  /* Leveys on 50% näkymän leveydestä */
+}
+
+/* H1-elementin leveys asetetaan samaksi kuin .calculator-container, eli 50% näkymän leveydestä */
+h1 {
+    width: 50vw;
+}
+
+/* .unit-luokalle asetetaan tekstin esitystapa inline, fonttikoko 24px ja marginaalit ympärille */
+.unit {
+    display: inline;  /* Asetetaan teksti inline, jotta sille ei tule rivinvaihtoa */
+    font-size: 24px;  /* Fonttikoko 24px */
+    margin: 5px;  /* Sisäiset marginaalit */
+}
+
+/* .input-number-luokan tyylit: kenttä on 100px leveä, fonttikoko 28px, keskitetty teksti ja marginaalit ympärillä */
+.input-number {
+    width: 100px;  /* Leveys 100px */
+    font-size: 28px;  /* Fonttikoko 28px */
+    text-align: center;  /* Teksti keskitetty */
+    margin: 5px;  /* Sisäiset marginaalit */
+}
+
+/* .calculate-button-luokka määrittää laskupainikkeen tyylin: vihreä taustaväri, valkoinen teksti ja suuri fonttikoko */
+.calculate-button {
+    display: block;  /* Painike vie oman rivinsä */
+    background-color: green;  /* Vihreä taustaväri */
+    color: white;  /* Valkoinen teksti */
+    font-size: 28px;  /* Fonttikoko 28px */
+    margin: 5px;  /* Sisäiset marginaalit */
+}
+
+/* .result-box-luokalle asetetaan fonttikoko 28px ja marginaalit */
+.result-box {
+    font-size: 28px;  /* Fonttikoko 28px */
+    margin: 5px;  /* Sisäiset marginaalit */
+}

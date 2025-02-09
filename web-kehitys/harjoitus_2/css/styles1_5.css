@@ -1,0 +1,95 @@
+/* Yleinen tyyli */
+body {
+  font-family: Arial;
+  background-color: #f4f4f9; /* Vaalea taustaväri */
+}
+
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 36px;
+  color: #333;
+}
+
+/* Kontti */
+.container {
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #ffffff; /* Kontin valkoinen tausta erottamaan se bodyn taustasta */
+  border: 1px solid #ddd; /* Laitetaan kontille Kevyt reunus */
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.container div {
+  margin: 10px;
+}
+
+/* Tehtävän numero */
+#task-info {
+  font-size: 20px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* Laskutehtävä */
+#question {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+#question span {
+  padding: 10px;
+  font-weight: bold;
+  font-size: 28px;
+  color: #333;
+}
+
+#operator, 
+.equals {
+  background-color: #FFEB3B; 
+  padding: 5px;
+  border-radius: 5px;
+  color: #333;
+}
+
+/* Vastauskenttä ja painike */
+#answer-section {
+  margin-top: 15px;
+}
+
+#answer {
+  width: 70px;
+  padding: 8px;
+  font-size: 20px;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+#submit {
+  background-color: #6A1B9A;
+  color: white;
+  font-size: 18px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+/* Lopputuloksen viesti */
+#result {
+  display: none;
+  text-align: center;
+  font-size: 20px;
+  color: green;
+  margin-top: 20px;
+  font-weight: bold;
+}
